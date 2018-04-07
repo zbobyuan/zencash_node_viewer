@@ -1,0 +1,12 @@
+node_modules
+.*.swp
+dist
+.tmp
+.env*
+!.env.fake
+log
+uploads/
+.vscode/
+/tags
+
+!api/swagger/swagger-ui/dist
