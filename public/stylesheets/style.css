@@ -17,6 +17,10 @@
   color: #fff;
 }
 
+.znv h6 {
+  margin: 0 0 0 10px;
+}
+
 .znv span.warn {
   background-color: #ffc107;
   color: #212529;
