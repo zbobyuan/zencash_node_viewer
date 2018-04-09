@@ -8,8 +8,12 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var monitor = require('./monitor');
 monitor.start();
+monitor.getGlobalData();
 
 var app = express();
+var hbs = require('hbs');
+require('handlebars-helpers')({handlebars: hbs.handlebars});
+require('./views/hbs_helpers.js')(hbs);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

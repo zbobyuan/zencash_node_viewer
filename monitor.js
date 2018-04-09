@@ -99,14 +99,14 @@ function start() {
       return Promise.join(paymentPromise, chalPromise, exceptionPromise)
         .then(([payments, chals, exceptions]) => {
           return Promise.mapSeries(payments, payment => {
-            db.securenodes.update({id: payment.nodeid}, {$set: {payments: payment.payments}});
+            return db.securenodes.updateAsync({id: payment.nodeid}, {$set: {payments: payment.payments}});
           }).then(() => {
             return Promise.mapSeries(chals, chal => {
-              db.securenodes.update({id: chal.nodeid}, {$set: {challenges: chal.chals}});
+              return db.securenodes.updateAsync({id: chal.nodeid}, {$set: {challenges: chal.chals}});
             });
           }).then(() => {
             return Promise.mapSeries(exceptions, exception => {
-              db.securenodes.update({id: exception.nodeid}, {$set: {exceptions: exception.chals}});
+              return db.securenodes.updateAsync({id: exception.nodeid}, {$set: {exceptions: exception.chals}});
             });
           });
         });
@@ -120,8 +120,19 @@ function start() {
     });
 }
 
+function getGlobalData() {
+  return request.get('https://securenodes.sea.zensystem.io/api/grid/nodes')
+    .then(response => response.userdata.global.total)
+    .then(total => {
+      return db.global.updateAsync({_id: 1}, { _id: 1, total }, {upsert: true});
+    })
+    .then(() => {
+      return Promise.delay(60 * 60 * 1000).then(getGlobalData);
+    });
+}
+
 function getLords() {
   return db.lords.findAsync({});
 }
 
-module.exports = { start };
+module.exports = { start, getGlobalData };

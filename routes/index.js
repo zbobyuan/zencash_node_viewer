@@ -29,7 +29,7 @@ function buildLordViewModel(lord) {
   let securenodes = lord.securenodes;
   let model = {
     total: lord.securenodes.length,
-    total_global: 8993,
+    total_global: lord.globalTotal,
   };
 
   let totalAll = 0, totalAllPaid = 0, _7dAll = 0, _7dAllPaid = 0;
@@ -40,6 +40,7 @@ function buildLordViewModel(lord) {
     } else {
       securenode.name = securenode.fqdn;
     }
+
     let paymentTotal = 0, paymentTotalPaid = 0, payment7d = 0, payment7dPaid = 0;
     let excludeDays7d = 0;
     securenode.status2 = getStatus2(securenode);
@@ -129,7 +130,7 @@ function buildLordViewModel(lord) {
   } else {
     model.overview = 'danger';
   }
-  model.downPercent = downPercent.toFixed(2);
+  model.downPercent = (downPercent * 100).toFixed(0);
   model.securenodes = securenodes;
   return model;
 }

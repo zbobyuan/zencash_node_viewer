@@ -1,25 +1,65 @@
-<h1>Zencash安全节点查看器</h1>
-<p>节点数：{{lord.total}}/{{lord.total_global}}</p>
-<p>概况：{{lord.overview}}</p>
-<p>总收益：{{lord.paymentSummary.totalPaid}}/{{lord.paymentSummary.total}}</p>
-<p>7天收益：{{lord.paymentSummary.7dPaid}}/{{lord.paymentSummary.7d}}</p>
-<h2>7天详情：</h2>
-<table>
+<h5 class="light-blue lighten-1 z-depth-2">Zen安全节点查看器</h5>
+
+<div class="row">
+  <div class="col s12 l3">
+    <div class="card darken-1">
+      <div class="card-content">
+        <span>节点数:</span>
+        <span class="card-title">{{lord.total}}</span>
+        <span>/{{lord.total_global}}(全网)</span>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 l3">
+    <div class="card darken-1">
+      <div class="card-content">
+        <span>概况:</span>
+        {{{overview lord.overview lord.downPercent}}}
+      </div>
+    </div>
+  </div>
+  <div class="col s12 l3">
+    <div class="card darken-1">
+      <div class="card-content">
+        <span>总收益:</span>
+        <span>{{toFixed lord.paymentSummary.totalPaid 2}}(已付)</span>
+        <span class="card-title">/{{toFixed lord.paymentSummary.total 2}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 l3">
+    <div class="card darken-1">
+      <div class="card-content">
+        <span>7天收益:</span>
+        <span>{{toFixed lord.paymentSummary.7dPaid 2}}(已付)</span>
+        <span class="card-title">/{{toFixed lord.paymentSummary.7d 2}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<h6>7天详情：</h6>
+<table class ="">
   <thead>
     <th>节点</th>
-    <th>收益</th>
-    <th>无效天数</th>
-    <th>挑战次数</th>
-    <th>挑战概况</th>
+    <th>收益<br >
+      付/总
+    </th>
+    <th>无效<br >天</th>
+    <th>挑战<br >
+      胜/总
+    </th>
+    <th>挑战统计<br >
+      近/快/慢/平
+    </th>
   </thead>
   <tbody>
     {{#each lord.securenodes}}
     <tr>
-      <td>{{name}}</td>
-      <td>{{paymentSummary.totalPaid}}/{{paymentSummary.total}}</td>
+      <td><a class="btn-small {{node_overview status2}}" href="https://securenodes.sea.zensystem.io/nodes/{{id}}/detail">{{name}}</a></td>
+      <td><a href="https://securenodes.sea.zensystem.io/nodes/{{id}}/pmts">{{toFixed paymentSummary.totalPaid 2}}/{{toFixed paymentSummary.total 2}}</a></td>
       <td>{{paymentSummary.7dExclude}}</td>
-      <td>{{challengeSummary.pass}}/{{challengeSummary.total}}</td>
-      <td>{{challengeSummary.latest}}/{{challengeSummary.min}}/{{challengeSummary.max}}/{{challengeSummary.avg}}</td>
+      <td><a href="https://securenodes.sea.zensystem.io/nodes/{{id}}/chals">{{challengeSummary.pass}}/{{challengeSummary.total}}</a></td>
+      <td>{{challengeSummary.latest}}/{{challengeSummary.min}}/{{challengeSummary.max}}/{{toFixed challengeSummary.avg 0}}</td>
     </tr>
     {{/each}}
   </tbody>
