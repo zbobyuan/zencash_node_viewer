@@ -7,13 +7,14 @@ let Promise = require('bluebird'),
 
 function start() {
   return getLords().then((lords) => {
-    let emails = _.uniq(_.flatten(lords.map(lord => lord.email)));
+    let emails = _.uniq(_.flatten(lords.map(lord => lord.emails)));
     return Promise.mapSeries(emails, email => {
       return request.get(`https://securenodes.sea.zensystem.io/api/grid/${email}/nodes`);
     }).then(responses => {
       let nodes = _.flatten(responses.map(resp => resp.rows));
       nodes.forEach(n => {
         let parsed = parse_domain(n.fqdn);
+        n.subdomain = parsed.subdomain;
         n.domain = parsed.domain + '.' + parsed.tld;
       });
       return nodes;
@@ -37,9 +38,10 @@ function start() {
         });
       });
     }).then((nodes) => {
-      let paymentArr = [], chalArr = [];
+      let paymentArr = [], chalArr = [], exceptionArr = [];
       let now = moment();
       nodes.forEach(node => {
+        exceptionArr.push(node.node.id);
         if (node.upsert) {
           paymentArr.push(node.node.id);
           chalArr.push(node.node.id);
@@ -85,13 +87,26 @@ function start() {
             };
           });
       });
-      return Promise.join(paymentPromise, chalPromise)
-        .then(([payments, chals]) => {
+      let exceptionPromise = Promise.mapSeries(exceptionArr, exceptionNodeId => {
+        return request.get(`https://securenodes.sea.zensystem.io/api/grid/${exceptionNodeId}/ex`)
+          .then(ex => {
+            return {
+              nodeid: exceptionNodeId,
+              chals: ex.rows,
+            };
+          });
+      });
+      return Promise.join(paymentPromise, chalPromise, exceptionPromise)
+        .then(([payments, chals, exceptions]) => {
           return Promise.mapSeries(payments, payment => {
             db.securenodes.update({id: payment.nodeid}, {$set: {payments: payment.payments}});
           }).then(() => {
             return Promise.mapSeries(chals, chal => {
               db.securenodes.update({id: chal.nodeid}, {$set: {challenges: chal.chals}});
+            });
+          }).then(() => {
+            return Promise.mapSeries(exceptions, exception => {
+              db.securenodes.update({id: exception.nodeid}, {$set: {exceptions: exception.chals}});
             });
           });
         });

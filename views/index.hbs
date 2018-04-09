@@ -1,2 +1,26 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<h1>Zencash安全节点查看器</h1>
+<p>节点数：{{lord.total}}/{{lord.total_global}}</p>
+<p>概况：{{lord.overview}}</p>
+<p>总收益：{{lord.paymentSummary.totalPaid}}/{{lord.paymentSummary.total}}</p>
+<p>7天收益：{{lord.paymentSummary.7dPaid}}/{{lord.paymentSummary.7d}}</p>
+<h2>7天详情：</h2>
+<table>
+  <thead>
+    <th>节点</th>
+    <th>收益</th>
+    <th>无效天数</th>
+    <th>挑战次数</th>
+    <th>挑战概况</th>
+  </thead>
+  <tbody>
+    {{#each lord.securenodes}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{paymentSummary.totalPaid}}/{{paymentSummary.total}}</td>
+      <td>{{paymentSummary.7dExclude}}</td>
+      <td>{{challengeSummary.pass}}/{{challengeSummary.total}}</td>
+      <td>{{challengeSummary.latest}}/{{challengeSummary.min}}/{{challengeSummary.max}}/{{challengeSummary.avg}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
