@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var monitor = require('./monitor');
 monitor.start();
 monitor.getGlobalData();
+require('./dbCompacter');
 
 var app = express();
 var hbs = require('hbs');
