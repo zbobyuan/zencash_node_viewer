@@ -124,7 +124,7 @@ function getGlobalData() {
   return request.get('https://securenodes.sea.zensystem.io/api/grid/nodes')
     .then(response => response.userdata.global.total)
     .then(total => {
-      return db.global.updateAsync({_id: 1}, { _id: 1, total }, {upsert: true});
+      return db.global.updateAsync({_id: 1}, { set: { total } }, {upsert: true});
     })
     .then(() => {
       return Promise.delay(60 * 60 * 1000).then(getGlobalData);
