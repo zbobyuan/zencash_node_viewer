@@ -15,7 +15,7 @@ function start() {
       nodes.forEach(n => {
         let parsed = parse_domain(n.fqdn);
         n.subdomain = parsed.subdomain;
-        n.domain = parsed.domain + '.' + parsed.tld;
+        n.domain = getDomain2(n.fqdn);
       });
       return nodes;
     }).then(securenodes => {
@@ -133,6 +133,14 @@ function getGlobalData() {
 
 function getLords() {
   return db.lords.findAsync({});
+}
+
+function getDomain2(domainname) {
+  let arr = domainname.split('.');
+  if (arr.length > 2) {
+    arr.shift();
+  }
+  return arr.join('.');
 }
 
 module.exports = { start, getGlobalData };
