@@ -9,7 +9,7 @@ function start() {
   return getLords().then((lords) => {
     let emails = _.uniq(_.flatten(lords.map(lord => lord.emails)));
     return Promise.mapSeries(emails, email => {
-      return request.get(`https://securenodes.sea.zensystem.io/api/grid/${email}/nodes`);
+      return request.get(`https://securenodes.na.zensystem.io/api/grid/${email}/nodes`);
     }).then(responses => {
       let nodes = _.flatten(responses.map(resp => resp.rows));
       nodes.forEach(n => {
@@ -70,7 +70,7 @@ function start() {
       });//forEach
 
       let paymentPromise = Promise.mapSeries(paymentArr, paymentNodeId => {
-        return request.get(`https://securenodes.sea.zensystem.io/api/grid/${paymentNodeId}/pmts`)
+        return request.get(`https://securenodes.na.zensystem.io/api/grid/${paymentNodeId}/pmts`)
           .then(payment => {
             return {
               nodeid: paymentNodeId,
@@ -79,7 +79,7 @@ function start() {
           });
       });
       let chalPromise = Promise.mapSeries(chalArr, chalNodeId => {
-        return request.get(`https://securenodes.sea.zensystem.io/api/grid/${chalNodeId}/crs`)
+        return request.get(`https://securenodes.na.zensystem.io/api/grid/${chalNodeId}/crs`)
           .then(chal => {
             return {
               nodeid: chalNodeId,
@@ -88,7 +88,7 @@ function start() {
           });
       });
       let exceptionPromise = Promise.mapSeries(exceptionArr, exceptionNodeId => {
-        return request.get(`https://securenodes.sea.zensystem.io/api/grid/${exceptionNodeId}/ex`)
+        return request.get(`https://securenodes.na.zensystem.io/api/grid/${exceptionNodeId}/ex`)
           .then(ex => {
             return {
               nodeid: exceptionNodeId,
@@ -121,7 +121,7 @@ function start() {
 }
 
 function getGlobalData() {
-  return request.get('https://securenodes.sea.zensystem.io/api/grid/nodes')
+  return request.get('https://securenodes.na.zensystem.io/api/grid/nodes')
     .then(response => response.userdata.global.total)
     .then(total => {
       return db.global.updateAsync({_id: 1}, { $set: { total } }, {upsert: true});

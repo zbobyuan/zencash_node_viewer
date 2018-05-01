@@ -55,10 +55,10 @@
   <tbody>
     {{#each lord.securenodes}}
     <tr>
-      <td><a class="btn-small {{node_overview status2}}" href="https://securenodes.sea.zensystem.io/nodes/{{id}}/detail">{{name}}</a></td>
-      <td><a href="https://securenodes.sea.zensystem.io/nodes/{{id}}/pmts">{{toFixed paymentSummary.7dPaid 2}}/{{toFixed paymentSummary.7d 2}}</a></td>
+      <td><a class="btn-small {{node_overview status2}}" href="https://securenodes.na.zensystem.io/nodes/{{id}}/detail">{{name}}</a></td>
+      <td><a href="https://securenodes.na.zensystem.io/nodes/{{id}}/pmts">{{toFixed paymentSummary.7dPaid 2}}/{{toFixed paymentSummary.7d 2}}</a></td>
       <td>{{paymentSummary.7dExclude}}</td>
-      <td><a href="https://securenodes.sea.zensystem.io/nodes/{{id}}/chals">{{challengeSummary.pass}}/{{challengeSummary.total}}</a></td>
+      <td><a href="https://securenodes.na.zensystem.io/nodes/{{id}}/chals">{{challengeSummary.pass}}/{{challengeSummary.total}}</a></td>
       <td>{{challengeSummary.latest}}/{{challengeSummary.min}}/{{challengeSummary.max}}/{{toFixed challengeSummary.avg 0}}</td>
     </tr>
     {{/each}}
