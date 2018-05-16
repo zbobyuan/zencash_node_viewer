@@ -1,4 +1,5 @@
 let Promise = require('bluebird');
+let _ = require('lodash');
 let db = require('./datastore/db');
 
 function get(lordId) {
@@ -21,14 +22,17 @@ function getGlobalData() {
 }
 
 function getSecureNodes(data) {
-  return db.securenodes.findAsync({domain: {$in: data.lord.domains}})
-    .then(nodes => {
-      return {
-        globalTotal: data.globalTotal,
-        lord: data.lord,
-        securenodes: nodes,
-      };
-    });
+  return Promise.mapSeries(data.lord.domains, domain => {
+    return db.securenodes.findAsync({fqdn: {$regex: new RegExp(`${domain}$`)}});
+  }).then(nodesArr => {
+    return _.flatten(nodesArr);
+  }).then(nodes => {
+    return {
+      globalTotal: data.globalTotal,
+      lord: data.lord,
+      securenodes: nodes,
+    };
+  });
 }
 
 module.exports = { get };

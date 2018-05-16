@@ -36,7 +36,7 @@ function buildLordViewModel(lord) {
   let downCount = 0;
   securenodes.forEach(securenode => {
     if (lord.lord.domains.length === 1) {
-      securenode.name = securenode.subdomain;
+      securenode.name = securenode.fqdn.replace(lord.lord.domains[0], '');
     } else {
       securenode.name = securenode.fqdn;
     }
