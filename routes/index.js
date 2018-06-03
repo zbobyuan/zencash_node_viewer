@@ -131,7 +131,15 @@ function buildLordViewModel(lord) {
     model.overview = 'danger';
   }
   model.downPercent = (downPercent * 100).toFixed(0);
-  model.securenodes = securenodes;
+  model.securenodes = securenodes.sort((a, b) => {
+    if (a.name < b.name){
+      return -1;
+    } else if (a.name === b.name) {
+      return 0;
+    } else {
+      return 1;
+    }
+  });
   return model;
 }
 
