@@ -37,7 +37,7 @@ function start() {
       let now = moment();
       nodes.forEach(node => {
         exceptionArr.push(node.node.id);
-        if (node.upsert) {
+        if (node.upsert || !node.node.payments || node.node.payments.length == 0) {
           paymentArr.push(node.node.id);
           chalArr.push(node.node.id);
         } else {
