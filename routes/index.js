@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 router.get('/snls/:id', function(req, res, next) {
   securenodelord.get(req.params.id).then(lord => {
     let viewModel = buildLordViewModel(lord);
-    res.render('index', {lord: viewModel});
+    res.render('index', {lord: viewModel, x: res});
   }).catch(err => {
     if (err === 'not found') {
       next(createError(404));

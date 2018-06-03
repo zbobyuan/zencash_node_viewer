@@ -1,28 +1,28 @@
-<h5 class="light-blue lighten-1 z-depth-2">Zen安全节点查看器</h5>
+<h5 class="light-blue lighten-1 z-depth-2">{{x18n x "Header"}}</h5>
 
 <div class="row">
   <div class="col s12 l3">
     <div class="card darken-1">
       <div class="card-content">
-        <span>节点数:</span>
+        <span>{{x18n x "Nodes"}}:</span>
         <span class="card-title">{{lord.total}}</span>
-        <span>/{{lord.total_global}}(全网)</span>
+        <span>/{{lord.total_global}}({{x18n x "Global"}})</span>
       </div>
     </div>
   </div>
   <div class="col s12 l3">
     <div class="card darken-1">
       <div class="card-content">
-        <span>概况:</span>
-        {{{overview lord.overview lord.downPercent}}}
+        <span>{{x18n x "Summary"}}:</span>
+        {{{overview x lord.overview lord.downPercent}}}
       </div>
     </div>
   </div>
   <div class="col s12 l3">
     <div class="card darken-1">
       <div class="card-content">
-        <span>总收益:</span>
-        <span>{{toFixed lord.paymentSummary.totalPaid 2}}(已付)</span>
+        <span>{{x18n x "TotalRewards"}}:</span>
+        <span>{{toFixed lord.paymentSummary.totalPaid 2}}({{x18n x "Paid"}})</span>
         <span class="card-title">/{{toFixed lord.paymentSummary.total 2}}</span>
       </div>
     </div>
@@ -30,26 +30,26 @@
   <div class="col s12 l3">
     <div class="card darken-1">
       <div class="card-content">
-        <span>7天收益:</span>
-        <span>{{toFixed lord.paymentSummary.7dPaid 2}}(已付)</span>
+        <span>{{x18n x "7dRewards"}}:</span>
+        <span>{{toFixed lord.paymentSummary.7dPaid 2}}({{x18n x "Paid"}})</span>
         <span class="card-title">/{{toFixed lord.paymentSummary.7d 2}}</span>
       </div>
     </div>
   </div>
 </div>
-<h6>7天详情：</h6>
+<h6>{{x18n x "7dDetails"}}：</h6>
 <table class ="">
   <thead>
-    <th>节点</th>
-    <th>收益<br >
-      付/总
+    <th>{{x18n x "Node"}}</th>
+    <th>{{x18n x "Rewards"}}<br >
+      {{x18n x "Paid"}}/{{x18n x "Total"}}
     </th>
-    <th>无效<br >天</th>
-    <th>挑战<br >
-      胜/总
+    <th>{{x18n x "Excluded"}}<br >{{x18n x "Days"}}</th>
+    <th>{{x18n x "Challenge"}}<br >
+      {{x18n x "Pass"}}/{{x18n x "Total"}}
     </th>
-    <th>挑战统计<br >
-      近/快/慢/平
+    <th>{{x18n x "Challenge"}}<br >
+      {{x18n x "Latest"}}/{{x18n x "Fast"}}/{{x18n x "Slow"}}/{{x18n x "Avg"}}*
     </th>
   </thead>
   <tbody>
@@ -64,3 +64,6 @@
     {{/each}}
   </tbody>
 </table>
+<p style="margin-left: 20px">
+  *{{x18n x "Comment"}}
+</p>

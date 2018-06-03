@@ -1,11 +1,11 @@
 module.exports = function(hbs) {
-  hbs.registerHelper('overview', function(overview, downPercent) {
+  hbs.registerHelper('overview', function(x, overview, downPercent) {
     if (overview === 'up') {
-      return '<span class="btn-small green">正常</span>';
+      return `<span class="btn-small green">${x.__('Up')}</span>`;
     } else if (overview === 'warn') {
-      return `<span class="btn-small warn">${downPercent}%停机</span>`;
+      return `<span class="btn-small warn">${downPercent}%${x.__('Down')}</span>`;
     } else {
-      return `<span class="btn-small red">${downPercent}%停机</span>`;
+      return `<span class="btn-small red">${downPercent}%${x.__('Down')}</span>`;
     }
   });
 
