@@ -1,3 +1,24 @@
 {
-  "Header": "ZenCash安全节点查看器"
+  "Header": "ZenCash安全节点查看器",
+  "Nodes": "节点数",
+  "Global": "全网",
+  "Summary": "概况",
+  "Up": "正常",
+  "Down": "异常",
+  "TotalRewards": "总收益",
+  "Paid": "已付",
+  "7dRewards": "7天收益",
+  "7dDetails": "7天明细",
+  "Node": "节点",
+  "Rewards": "收益",
+  "Total": "总",
+  "Excluded": "无效",
+  "Days": "天",
+  "Challenge": "挑战",
+  "Pass": "胜",
+  "Latest": "近",
+  "Fast": "快",
+  "Slow": "慢",
+  "Avg": "均",
+  "Comment": "近：最近一次，快：最快一次，慢：最慢一次，均：平均数"
 }
